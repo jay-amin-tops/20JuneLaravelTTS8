@@ -3,7 +3,7 @@ class QueryClas{
   public $Query;
   public function select($val)
   {
-    $this->Query .= "SELECT $val";
+    $this->Query = "SELECT $val";
     return $this;
   }  
   public function from($tbl)
@@ -20,7 +20,8 @@ class QueryClas{
 $D = new QueryClas();
 // echo $Q = $D -> select('*') -> Query;
 // echo $Q = $D -> select("uername,password") -> Query;
-// echo $Q = $D -> select("uername,password")->from("users") -> Query;
-// echo $Q = $D -> select("*")->from("users") ->where(45)-> Query;
-echo $Q = $D -> select("*")->from("users") ->where(5)-> Query;
+// $Q = $D -> select("uername,password")->from("users");
+// print_r($Q->Query);
+echo $Q = $D -> select("*")->from("users") ->where(45)-> Query;
+// echo $Q = $D -> select("*")->from("users") ->where(5)-> Query;
 ?>
