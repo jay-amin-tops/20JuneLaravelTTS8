@@ -132,7 +132,7 @@ $(function () {
 });
 </script>
 <!-- disable body scroll which navbar is in active -->
-<script src="assets/js/jquery-2.1.4.min.js"></script>
+<script src="<?php echo $this->assets_url; ?>js/jquery-2.1.4.min.js"></script>
 <!--/login-->
 <script>
       $(document).ready(function () {

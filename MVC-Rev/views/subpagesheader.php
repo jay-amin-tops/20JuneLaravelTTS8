@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SpryStore E-commerce Category Bootstrap Responsive Website Template | About :: W3layouts</title>
     <!-- Template CSS -->
-    <link rel="stylesheet" href="<?php echo $this->assets_url; ?>css/style-starter.css">
+    <link rel="stylesheet" href="assets/css/style-starter.css">
     <!-- Template CSS -->
     <!-- <link href="//fonts.googleapis.com/css?family=Oswald:300,400,500,600&display=swap" rel="stylesheet">
       <link href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900&display=swap" rel="stylesheet"> -->
@@ -95,7 +95,7 @@
                     <!--/nav-->
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="container-fluid serarc-fluid">
-                            <a class="navbar-brand" href="index.html">
+                            <a class="navbar-brand" href="home">
                                 Spry<span class="lohny">S</span>tore</a>
                             <!-- if logo is image enable this   
                         <a class="navbar-brand" href="#index.html">
@@ -150,18 +150,3 @@
                     </nav>
                     <!--//nav-->
                 </header>
-                <div class="breadcrumb-contentnhy">
-                    <div class="container">
-                        <nav aria-label="breadcrumb">
-                            <h2 class="hny-title text-center">About Us</h2>
-                            <ol class="breadcrumb mb-0">
-                                <li><a href="index.html">Home</a>
-                                    <span class="fa fa-angle-double-right"></span>
-                                </li>
-                                <li class="active">About</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-    </section>
