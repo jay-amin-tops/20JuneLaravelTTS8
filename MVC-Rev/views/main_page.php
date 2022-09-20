@@ -12,6 +12,11 @@ Author URL: http://w3layouts.com
   <title>SpryStore E-commerce Category Bootstrap Responsive Website Template | Home :: W3layouts</title>
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style-starter.css">
+  <style>
+	.text-light{
+		color: white;
+	}
+  </style>
   <!-- Template CSS -->
   <!-- <link href="//fonts.googleapis.com/css?family=Oswald:300,400,500,600&display=swap" rel="stylesheet">
   <link href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900&display=swap" rel="stylesheet"> -->
@@ -84,7 +89,12 @@ Author URL: http://w3layouts.com
 										</div>
 									</div>
 									<button type="submit" class="submit-login btn mb-4">Sign In</button>
-
+									<div class="form-check mb-2 text-center">
+										<div >
+											<a class="text-light" href="registration">Click here for new account</a>
+											<div class="clearfix"></div>
+										</div>
+									</div>
 								</form>
 								<!--//login-form-->
 							</div>
