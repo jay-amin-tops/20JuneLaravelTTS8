@@ -28,8 +28,20 @@ class Controller extends Model{
                     include_once("views/subpagesheader.php");
                     include_once("views/signup.php");
                     include_once("views/footer.php");
-                    echo "<pre>";
-                    print_r($_POST);
+                    if (isset( $_POST['save'] )) {
+                        // echo "<pre>";
+                        // print_r($_POST);
+                        $HobbiesData = implode(',',$_POST['hob']); 
+                        $data = array("username"=>$_POST['username'],
+                        "password"=>$_POST['password'],
+                        "gender"=>$_POST['gender'],
+                        "mobile"=>$_POST['mobile'],
+                        "hobby"=>$HobbiesData,
+                        "email"=>$_POST['email']);
+                        // $RegistrationResponse = $this->insert("users",array("username"=>"test","password"=>"456","gender"=>"Male","email"=>"mymail@mail.com"));
+                        $RegistrationResponse = $this->insert("users",$data);
+                        // $RegistrationResponse = $this->insert("city",array("city_title"=>"test"));
+                    }
                     break;
                 
                 default:

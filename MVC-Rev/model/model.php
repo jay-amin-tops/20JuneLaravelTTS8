@@ -5,7 +5,7 @@ class Model{
     public $DbConnection = "";
     public function __construct() {
         try {
-            $this->DbConnection = new mysqli("localhost1","root","","masterdatabase");
+            $this->DbConnection = new mysqli("localhost","root","","masterdatabase");
         } catch (\Exception $e) {
             if (!file_exists('log')) {
                 mkdir("log");
@@ -17,7 +17,41 @@ class Model{
             file_put_contents($fileName,$Msg,FILE_APPEND);
             echo "Error in database connection try after some time";
         }
-        echo "<pre>";
-        print_r($this->DbConnection);    
+        // echo "<pre>";
+        // print_r($this->DbConnection);    
+    }
+    public function insert($tbl,$insertData){
+        // echo "<pre>";
+        // print_r($insertData);
+        // Converting array keys to string for columns START
+        $clms =implode(",",array_keys($insertData));
+        // Converting array keys to string for columns END
+        // Converting array values to string for value START
+        $vals =implode("','",$insertData);
+        // Converting array values to string for value START
+        // print_r($clms);
+        // echo "</pre>";
+        // echo "INSERT INTO users(username,password,gender,email)VALUES('test','123','Male','mail@mail.com')";
+        // echo "<br>";
+        // Dynamic Insert Query START
+        $Query = "INSERT INTO $tbl($clms)VALUES('$vals')";
+        // Dynamic Insert Query END
+        // every query must be executed on database 
+        $QueryEx = $this->DbConnection->query($Query);
+        if ($QueryEx > 0) {
+            $ResponseData['Data'] = 1;
+            $ResponseData['Code'] = 1;
+            $ResponseData['Msg'] = "Success";
+        } else {
+            $ResponseData['Data'] = 0;
+            $ResponseData['Code'] = 0;
+            $ResponseData['Msg'] = "Error while inserting";
+        }
+        return $ResponseData;
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
     }
 }
