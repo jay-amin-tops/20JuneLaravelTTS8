@@ -35,11 +35,49 @@ class Model{
         // echo "<br>";
         // Dynamic Insert Query START
         $Query = "INSERT INTO $tbl($clms)VALUES('$vals')";
+        // die;
+        // exit;
         // Dynamic Insert Query END
         // every query must be executed on database 
         $QueryEx = $this->DbConnection->query($Query);
         if ($QueryEx > 0) {
             $ResponseData['Data'] = 1;
+            $ResponseData['Code'] = 1;
+            $ResponseData['Msg'] = "Success";
+        } else {
+            $ResponseData['Data'] = 0;
+            $ResponseData['Code'] = 0;
+            $ResponseData['Msg'] = "Error while inserting";
+        }
+        return $ResponseData;
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+    }
+    public function login($uname,$pass){
+        $Query = "SELECT * FROM users WHERE username='$uname' AND password= '$pass'";
+        $QueryEx = $this->DbConnection->query($Query);
+        // echo "<pre>";
+        // print_r($QueryEx);
+        if ($QueryEx->num_rows > 0) {
+            // $FetchData = $QueryEx->fetch_all();
+            // echo "<pre>";
+            // print_r($FetchData);
+            // $FetchData = $QueryEx->fetch_array();
+            // echo "<pre>";
+            // print_r($FetchData);
+            // $FetchData = $QueryEx->fetch_row();
+            // echo "<pre>";
+            // print_r($FetchData);
+            // $FetchData = $QueryEx->fetch_field();
+            // echo "<pre>";
+            // print_r($FetchData);
+            while ($data = $QueryEx->fetch_object()) {
+                $FetchData[]=$data;
+            }
+            $ResponseData['Data'] = $FetchData;
             $ResponseData['Code'] = 1;
             $ResponseData['Msg'] = "Success";
         } else {

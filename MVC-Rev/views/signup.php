@@ -43,10 +43,10 @@
                                 <input type="radio" name="gender" id="Female">  <label for="Female">Female</label>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" name="hob[]" id="Cricket">  <label for="Cricket">Cricket</label>
-                                <input type="checkbox" name="hob[]" id="Music">  <label for="Music">Music</label>
-                                <input type="checkbox" name="hob[]" id="Reading">  <label for="Reading">Reading</label>
-                                <input type="checkbox" name="hob[]" id="Travelling">  <label for="Travelling">Travelling</label>
+                                <input type="checkbox" name="hob[]" value="Cricket" id="Cricket">  <label for="Cricket">Cricket</label>
+                                <input type="checkbox" name="hob[]" value="Music" id="Music">  <label for="Music">Music</label>
+                                <input type="checkbox" name="hob[]" value="Reading" id="Reading">  <label for="Reading">Reading</label>
+                                <input type="checkbox" name="hob[]" value="Travelling" id="Travelling">  <label for="Travelling">Travelling</label>
                             </div>
                             <div class="form-group text-center">
                                 <input type="submit" class="btn btn-primary" name="save" value="Register" id="save">

@@ -1,18 +1,25 @@
 <?php
 include_once("model/model.php");
-class Controller extends Model{
-    public function __construct() {
+class Controller extends Model
+{
+    public function __construct()
+    {
         parent::__construct();
         // echo "called controller";
         // echo "<pre>";
         // print_r($_SERVER);
         // print_r($_SERVER['PATH_INFO']);
-        if (isset($_SERVER['PATH_INFO'])){
+        if (isset($_SERVER['PATH_INFO'])) {
             switch ($_SERVER['PATH_INFO']) {
                 case '/home':
                     include_once("views/main_page.php");
                     include_once("views/footer.php");
                     // echo "HOme page";
+                    if (isset($_POST['login'])) {
+                        $loginRes = $this->login($_POST['uname'],$_POST['password']);
+                        echo "<pre>";
+                        print_r($loginRes);
+                    }
                     break;
                 case '/about':
                     include_once("views/subpagesheader.php");
@@ -28,33 +35,46 @@ class Controller extends Model{
                     include_once("views/subpagesheader.php");
                     include_once("views/signup.php");
                     include_once("views/footer.php");
-                    if (isset( $_POST['save'] )) {
-                        // echo "<pre>";
-                        // print_r($_POST);
+                    if (isset($_POST['save'])) {
+                        echo "<pre>";
+                        print_r($_POST['hob']);
                         $HobbiesData = implode(',',$_POST['hob']); 
-                        $data = array("username"=>$_POST['username'],
-                        "password"=>$_POST['password'],
-                        "gender"=>$_POST['gender'],
-                        "mobile"=>$_POST['mobile'],
-                        "hobby"=>$HobbiesData,
-                        "email"=>$_POST['email']);
-                        // $RegistrationResponse = $this->insert("users",array("username"=>"test","password"=>"456","gender"=>"Male","email"=>"mymail@mail.com"));
-                        $RegistrationResponse = $this->insert("users",$data);
-                        // $RegistrationResponse = $this->insert("city",array("city_title"=>"test"));
+                        $data = array(
+                            "username" => $_POST['username'],
+                            "password" => $_POST['password'],
+                            "gender" => $_POST['gender'],
+                            "email" => $_POST['email'],
+                            "mobile" => $_POST['mobile'],
+                            "hobby" => $HobbiesData,
+                        );
+                        $RegistrationResponse = $this->insert("users", $data);
                     }
+                    // if (isset( $_POST['save'] )) {
+                    //     // echo "<pre>";
+                    //     // print_r($_POST);
+                    //     $HobbiesData = implode(',',$_POST['hob']); 
+                    //     $data = array("username"=>$_POST['username'],
+                    //     "password"=>$_POST['password'],
+                    //     "gender"=>$_POST['gender'],
+                    //     "mobile"=>$_POST['mobile'],
+                    //     "hobby"=>$HobbiesData,
+                    //     "email"=>$_POST['email']);
+                    //     // $RegistrationResponse = $this->insert("users",array("username"=>"test","password"=>"456","gender"=>"Male","email"=>"mymail@mail.com"));
+                    //     $RegistrationResponse = $this->insert("users",$data);
+                    //     // $RegistrationResponse = $this->insert("city",array("city_title"=>"test"));
+                    // }
                     break;
-                
+
                 default:
                     include_once("views/subpagesheader.php");
                     include_once("views/templatepage.php");
                     include_once("views/footer.php");
                     break;
             }
-        } else{
+        } else {
             header("location:home");
             // echo "invalid uri";
         }
     }
 }
 $Controller = new Controller;
-?>

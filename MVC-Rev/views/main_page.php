@@ -68,14 +68,14 @@ Author URL: http://w3layouts.com
 								<form action="#" method="post">
 									<div class="form-group">
 										<p class="login-texthny mb-2">Email address</p>
-										<input type="email" class="form-control" id="exampleInputEmail1"
+										<input type="text" class="form-control" id="exampleInputEmail1" name="uname"
 											aria-describedby="emailHelp" placeholder="" required="">
 										<small id="emailHelp" class="form-text text-muted">We'll never share your email
 											with anyone else.</small>
 									</div>
 									<div class="form-group">
 										<p class="login-texthny mb-2">Password</p>
-										<input type="password" class="form-control" id="exampleInputPassword1"
+										<input type="password" class="form-control" id="exampleInputPassword1" name="password"
 											placeholder="" required="">
 									</div>
 									<div class="form-check mb-2">
@@ -88,7 +88,7 @@ Author URL: http://w3layouts.com
 											<div class="clearfix"></div>
 										</div>
 									</div>
-									<button type="submit" class="submit-login btn mb-4">Sign In</button>
+									<button type="submit" name="login" class="submit-login btn mb-4">Sign In</button>
 									<div class="form-check mb-2 text-center">
 										<div >
 											<a class="text-light" href="registration">Click here for new account</a>
