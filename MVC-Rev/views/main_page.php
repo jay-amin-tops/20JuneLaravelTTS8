@@ -39,12 +39,24 @@ Author URL: http://w3layouts.com
 					<!--//left-->
 					<!--/right-->
 					<ul class="top-hnt-right-content col-lg-6">
-
-						<li class="button-log usernhy">
-							<a class="btn-open" href="#">
-								<span class="fa fa-user" aria-hidden="true"></span>
-							</a>
-						</li>
+						<?php 
+							// echo "<pre>";
+							// print_r($_SESSION['UserData']->username);
+							if (isset($_SESSION['UserData'])) { ?>
+								<li class=" usernhy">
+									<a class="btn-open" href="logout">
+										<span class="fa fa-user"></span>
+										Logout
+										<?php //echo "Hello ",$_SESSION['UserData']->username ?>
+									</a>
+								</li>
+							<?php } else { ?>
+								<li class="button-log usernhy">
+									<a class="btn-open" href="#">
+										<span class="fa fa-user" aria-hidden="true"></span>
+									</a>
+								</li>
+							<?php } ?>
 						<li class="transmitvcart galssescart2 cart cart box_1">
 							<form action="#" method="post" class="last">
 								<input type="hidden" name="cmd" value="_cart">

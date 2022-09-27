@@ -50,11 +50,11 @@ class Model{
             $ResponseData['Msg'] = "Error while inserting";
         }
         return $ResponseData;
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
     }
     public function login($uname,$pass){
         $Query = "SELECT * FROM users WHERE username='$uname' AND password= '$pass'";
@@ -77,7 +77,7 @@ class Model{
             while ($data = $QueryEx->fetch_object()) {
                 $FetchData[]=$data;
             }
-            $ResponseData['Data'] = $FetchData;
+            $ResponseData['Data'] = $FetchData[0];
             $ResponseData['Code'] = 1;
             $ResponseData['Msg'] = "Success";
         } else {
@@ -86,10 +86,10 @@ class Model{
             $ResponseData['Msg'] = "Error while inserting";
         }
         return $ResponseData;
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
     }
 }

@@ -1,7 +1,9 @@
 <?php
+session_start();
 include_once("model/model.php");
 class Controller extends Model
 {
+    public $base_url_assets = "http://localhost/laravel/20JuneLaravelTTS8/20JuneLaravelTTS8/MVC-Rev/assets/";
     public function __construct()
     {
         parent::__construct();
@@ -17,8 +19,29 @@ class Controller extends Model
                     // echo "HOme page";
                     if (isset($_POST['login'])) {
                         $loginRes = $this->login($_POST['uname'],$_POST['password']);
-                        echo "<pre>";
-                        print_r($loginRes);
+                        // echo "<pre>";
+                        // print_r($loginRes);
+                        if ($loginRes['Code'] == 1) {
+                            $_SESSION['UserData'] = $loginRes['Data']; 
+                            if ($loginRes['Data']->role_id == 1) {
+                                // header("location:admindashboard");?>
+                                <script>
+                                    alert("Login Success ");
+                                    window.location.href="admindashboard";
+                                </script>
+                            <?php } else {
+                                // header("location:home");?>
+                                <script>
+                                    alert("Login Success ");
+                                    window.location.href="home";
+                                </script>
+                            <?php
+                            }
+                            
+                        } else {
+                        
+                        }
+                        
                     }
                     break;
                 case '/about':
@@ -31,13 +54,17 @@ class Controller extends Model
                     include_once("views/contact.php");
                     include_once("views/footer.php");
                     break;
+                case '/logout':
+                    session_destroy();
+                    header("location:home");
+                    break;
                 case '/registration':
                     include_once("views/subpagesheader.php");
                     include_once("views/signup.php");
                     include_once("views/footer.php");
                     if (isset($_POST['save'])) {
-                        echo "<pre>";
-                        print_r($_POST['hob']);
+                        // echo "<pre>";
+                        // print_r($_POST['hob']);
                         $HobbiesData = implode(',',$_POST['hob']); 
                         $data = array(
                             "username" => $_POST['username'],
@@ -48,6 +75,16 @@ class Controller extends Model
                             "hobby" => $HobbiesData,
                         );
                         $RegistrationResponse = $this->insert("users", $data);
+                        if ($RegistrationResponse['Code'] == 1) {
+                            // header("location:home"); ?>
+                            <script>
+                                alert("Registration Success ");
+                                window.location.href="home";
+                            </script>
+                        <?php }else{
+                            echo "<script>alert('Error while inserting try after some time')</script>";
+
+                        }
                     }
                     // if (isset( $_POST['save'] )) {
                     //     // echo "<pre>";
@@ -65,6 +102,11 @@ class Controller extends Model
                     // }
                     break;
 
+                case "/admindashboard":
+                    include_once("views/admin/header.php");
+                    include_once("views/admin/dashboard.php");
+                    include_once("views/admin/footer.php");
+                    break;
                 default:
                     include_once("views/subpagesheader.php");
                     include_once("views/templatepage.php");
