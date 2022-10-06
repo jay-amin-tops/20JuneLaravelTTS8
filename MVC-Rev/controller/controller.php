@@ -107,6 +107,23 @@ class Controller extends Model
                     include_once("views/admin/dashboard.php");
                     include_once("views/admin/footer.php");
                     break;
+                case "/allusers":
+                    $AllUsersData = $this->select("users",array("role_id"=>2,"status"=>1));
+                    // $AllUsersData = $this->select("users");
+                    include_once("views/admin/header.php");
+                    include_once("views/admin/allusers.php");
+                    include_once("views/admin/footer.php");
+                    break;
+                case "/edituser":
+                    $UsersDataById = $this->select("users",array("id"=>$_GET['userid']));
+                    // echo "<pre>";
+                    // print_r($AllUsersData);
+                    // exit;
+                    // $AllUsersData = $this->select("users");
+                    include_once("views/admin/header.php");
+                    include_once("views/admin/edituser.php");
+                    include_once("views/admin/footer.php");
+                    break;
                 default:
                     include_once("views/subpagesheader.php");
                     include_once("views/templatepage.php");

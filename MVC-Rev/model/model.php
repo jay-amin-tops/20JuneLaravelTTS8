@@ -92,4 +92,27 @@ class Model{
         // echo "<br>";
         // echo "<br>";
     }
+    public function select($tbl,$where){
+        $Query = "SELECT * FROM $tbl";
+        $Query .= " WHERE";
+        foreach ($where as $key => $value) {
+            $Query .= " $key = '$value' AND";
+        }
+        $Query = rtrim($Query,"AND");
+        // echo  $Query;
+        $QueryEx = $this->DbConnection->query($Query);
+        if ($QueryEx->num_rows > 0) {
+            while ($data = $QueryEx->fetch_object()) {
+                $FetchData[]=$data;
+            }
+            $ResponseData['Data'] = $FetchData;
+            $ResponseData['Code'] = 1;
+            $ResponseData['Msg'] = "Success";
+        } else {
+            $ResponseData['Data'] = 0;
+            $ResponseData['Code'] = 0;
+            $ResponseData['Msg'] = "Error while inserting";
+        }
+        return $ResponseData;
+    }
 }
