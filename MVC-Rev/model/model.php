@@ -92,13 +92,15 @@ class Model{
         // echo "<br>";
         // echo "<br>";
     }
-    public function select($tbl,$where){
+    public function select($tbl,$where=""){
         $Query = "SELECT * FROM $tbl";
-        $Query .= " WHERE";
-        foreach ($where as $key => $value) {
-            $Query .= " $key = '$value' AND";
+        if ($where != "") {
+            $Query .= " WHERE";
+            foreach ($where as $key => $value) {
+                $Query .= " $key = '$value' AND";
+            }
+            $Query = rtrim($Query,"AND");
         }
-        $Query = rtrim($Query,"AND");
         // echo  $Query;
         $QueryEx = $this->DbConnection->query($Query);
         if ($QueryEx->num_rows > 0) {

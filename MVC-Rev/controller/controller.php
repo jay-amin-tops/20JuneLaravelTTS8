@@ -116,6 +116,7 @@ class Controller extends Model
                     break;
                 case "/edituser":
                     $UsersDataById = $this->select("users",array("id"=>$_GET['userid']));
+                    $allCitiesData = $this->select("cities_data");
                     // echo "<pre>";
                     // print_r($AllUsersData);
                     // exit;
