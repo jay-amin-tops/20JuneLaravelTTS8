@@ -48,11 +48,25 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
+                                    <?php $HobbyArray = explode(",",$UsersDataById['Data'][0]->hobby);
+                                    //  echo "<pre>";
+                                    //  print_r($HobbyArray);
+                                    //  var_dump(in_array("Cricket",$HobbyArray));
+                                    //  echo "</pre>";
+                                     ?>
                                         <label for="hobbies">Hobby</label> <br>
-                                        <input type="checkbox" value="Cricket" name="chk[]" id="Cricket"> <label for="Cricket"> Cricket</label>
-                                        <input type="checkbox" value="Music" name="chk[]" id="Music"> <label for="Music"> Music</label>
-                                        <input type="checkbox" value="Reading" name="chk[]" id="Reading"> <label for="Reading"> Reading</label>
-                                        <input type="checkbox" value="Travelling" name="chk[]" id="Travelling"> <label for="Travelling"> Travelling</label>
+                                        <input type="checkbox" <?php if (in_array("Cricket",$HobbyArray)) {
+                                            echo "checked"; 
+                                        }?>  value="Cricket" name="chk[]" id="Cricket"> <label for="Cricket"> Cricket</label>
+                                        <input type="checkbox" <?php if (in_array("Music",$HobbyArray)) {
+                                            echo "checked"; 
+                                        }?> value="Music" name="chk[]" id="Music"> <label for="Music"> Music</label>
+                                        <input type="checkbox" <?php if (in_array("Reading",$HobbyArray)) {
+                                            echo "checked"; 
+                                        }?> value="Reading" name="chk[]" id="Reading"> <label for="Reading"> Reading</label>
+                                        <input type="checkbox" <?php if (in_array("Travelling",$HobbyArray)) {
+                                            echo "checked"; 
+                                        }?> value="Travelling" name="chk[]" id="Travelling"> <label for="Travelling"> Travelling</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -61,7 +75,9 @@
                                         <select name="city" id="city">
                                             <option value="">Select City</option>
                                             <?php foreach ($allCitiesData['Data'] as $key => $value) { ?>
-                                                <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
+                                                <option <?php if ($value->id == $UsersDataById['Data'][0]->city) {
+                                                  echo "selected";  
+                                                } ?>  value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -70,6 +86,11 @@
                                     <div class="col">
                                         <label for="prof_pic">Profile Pic</label> <br>
                                         <input type="file" name="prof_pic" id="prof_pic">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" name="Update" value="Update" id="Update">
                                     </div>
                                 </div>
                             </div>

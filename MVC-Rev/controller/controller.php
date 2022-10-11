@@ -124,6 +124,18 @@ class Controller extends Model
                     include_once("views/admin/header.php");
                     include_once("views/admin/edituser.php");
                     include_once("views/admin/footer.php");
+
+                    if (isset($_POST['Update'])) {
+                        if ($_FILES['prof_pic']['error'] == 0) {
+                            $ImageOrignalName = $_FILES['prof_pic']['name'];
+                            $ext = pathinfo($ImageOrignalName, PATHINFO_EXTENSION);
+                            $ImageName = "shopping".time().".".$ext;
+                            move_uploaded_file($_FILES['prof_pic']['tmp_name'],"uploads/$ImageName");
+                        }else{
+                            $ImageName= "default.jpg";
+                        }
+                        echo $ImageName;
+                    }
                     break;
                 default:
                     include_once("views/subpagesheader.php");
