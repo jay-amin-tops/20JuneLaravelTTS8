@@ -16,6 +16,7 @@
                                 <th>User Name</th>
                                 <th>Gender</th>
                                 <th>Email</th>
+                                <th>Pic</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -26,6 +27,7 @@
                                     <td><?php echo $value->username; ?></td>
                                     <td><?php echo $value->gender; ?></td>
                                     <td><?php echo $value->email; ?></td>
+                                    <td><img src="uploads/<?php echo $value->prof_pic; ?>" alt="" width="80px"> </td>
                                     <td>
                                         <a class="btn btn-sm btn-primary" href="edituser?userid=<?php echo $value->id; ?>"><i class="fa fa-pencil"></i></a>
                                         <a class="btn btn-sm btn-danger" href="deleteuser?userid=<?php echo $value->id; ?>"><i class="fa fa-trash"></i></a>

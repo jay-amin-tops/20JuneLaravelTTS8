@@ -6,6 +6,7 @@ class Controller extends Model
     public $base_url_assets = "http://localhost/laravel/20JuneLaravelTTS8/20JuneLaravelTTS8/MVC-Rev/assets/";
     public function __construct()
     {
+        ob_start();
         parent::__construct();
         // echo "called controller";
         // echo "<pre>";
@@ -126,6 +127,12 @@ class Controller extends Model
                     include_once("views/admin/footer.php");
 
                     if (isset($_POST['Update'])) {
+                        $HobbiesData = implode(',',$_POST['chk']); 
+                        // echo "<pre>";
+                        // print_r($_POST);
+                        unset($_POST['chk']);
+                        array_pop($_POST);
+                        // print_r($_POST);
                         if ($_FILES['prof_pic']['error'] == 0) {
                             $ImageOrignalName = $_FILES['prof_pic']['name'];
                             $ext = pathinfo($ImageOrignalName, PATHINFO_EXTENSION);
@@ -134,7 +141,13 @@ class Controller extends Model
                         }else{
                             $ImageName= "default.jpg";
                         }
-                        echo $ImageName;
+                        $UpdateData = array_merge($_POST,array("hobby"=>$HobbiesData,"prof_pic"=>$ImageName));
+                        // print_r($Data);
+                        // echo "</pre>";
+                        // exit;
+                        // echo $ImageName;
+                        $UpdateRes = $this->update("users",$UpdateData,array("id"=>$_REQUEST['userid']));
+                        header("location:allusers");
                     }
                     break;
                 default:
@@ -147,6 +160,7 @@ class Controller extends Model
             header("location:home");
             // echo "invalid uri";
         }
+        ob_flush();
     }
 }
 $Controller = new Controller;
