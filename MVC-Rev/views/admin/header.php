@@ -1,4 +1,16 @@
-
+<?php
+// echo "<pre>";
+// print_r($_SESSION);
+// exit;
+if (!isset($_SESSION['UserData'])) {
+    header("location:home");
+}
+if (isset($_SESSION['UserData'])) {
+    if ($_SESSION['UserData']->role_id != 1) {
+        header("location:home");
+    }
+}
+?>
 <!--
     Author: W3layouts
     Author URL: http://w3layouts.com

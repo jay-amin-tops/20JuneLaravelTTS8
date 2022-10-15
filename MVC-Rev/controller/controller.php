@@ -150,6 +150,10 @@ class Controller extends Model
                         header("location:allusers");
                     }
                     break;
+                case "/deleteuser":    
+                    $DeleteRes = $this->delete("users",array("id"=>$_REQUEST['userid']));
+                    header("location:allusers");
+                    break;
                 default:
                     include_once("views/subpagesheader.php");
                     include_once("views/templatepage.php");

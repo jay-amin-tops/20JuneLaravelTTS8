@@ -144,4 +144,27 @@ class Model{
         }
         return $ResponseData;
     }
+    public function delete($tbl,$where=""){
+        $Query = "DELETE FROM $tbl";
+        if ($where != "") {
+            $Query .= " WHERE";
+            foreach ($where as $key => $value) {
+                $Query .= " $key = '$value' AND";
+            }
+            $Query = rtrim($Query,"AND");
+        }
+        // echo  $Query;
+        // exit;
+        $QueryEx = $this->DbConnection->query($Query);
+        if ($QueryEx > 0) {
+            $ResponseData['Data'] = 1;
+            $ResponseData['Code'] = 1;
+            $ResponseData['Msg'] = "Success";
+        } else {
+            $ResponseData['Data'] = 0;
+            $ResponseData['Code'] = 0;
+            $ResponseData['Msg'] = "Error while inserting";
+        }
+        return $ResponseData;
+    }
 }
