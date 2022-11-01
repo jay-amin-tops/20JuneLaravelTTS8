@@ -1,0 +1,6 @@
+
+Error Date Time =>> 20-09-2022 08:49:26 AM
+Error Msg =>> php_network_getaddresses: getaddrinfo for localhost1 failed: No such host is known. 
+
+Error Date Time =>> 20-09-2022 08:49:56 AM
+Error Msg =>> php_network_getaddresses: getaddrinfo for localhost1 failed: No such host is known. 
