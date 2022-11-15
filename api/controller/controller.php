@@ -8,136 +8,61 @@ class Controller extends Model
     {
         ob_start();
         parent::__construct();
-        // echo "called controller";
+        // echo "called";
         // echo "<pre>";
         // print_r($_SERVER);
-        // print_r($_SERVER['PATH_INFO']);
         if (isset($_SERVER['PATH_INFO'])) {
             switch ($_SERVER['PATH_INFO']) {
-                case '/login':
-                    $APIData = json_decode(file_get_contents('php://input')); 
-                    // print_r($APIData);
-                    $loginRes = $this->login($APIData->username,$APIData->password);
-                    echo json_encode($loginRes);                       
-                
-                    break;
-                case '/about':
-                    include_once("views/subpagesheader.php");
-                    include_once("views/about.php");
-                    include_once("views/footer.php");
-                    break;
-                case '/contact':
-                    include_once("views/subpagesheader.php");
-                    include_once("views/contact.php");
-                    include_once("views/footer.php");
-                    break;
-                case '/logout':
-                    session_destroy();
-                    header("location:home");
-                    break;
-                case '/registration':
-                    include_once("views/subpagesheader.php");
-                    include_once("views/signup.php");
-                    include_once("views/footer.php");
-                    if (isset($_POST['save'])) {
-                        // echo "<pre>";
-                        // print_r($_POST['hob']);
-                        $HobbiesData = implode(',',$_POST['hob']); 
-                        $data = array(
-                            "username" => $_POST['username'],
-                            "password" => $_POST['password'],
-                            "gender" => $_POST['gender'],
-                            "email" => $_POST['email'],
-                            "mobile" => $_POST['mobile'],
-                            "hobby" => $HobbiesData,
-                        );
-                        $RegistrationResponse = $this->insert("users", $data);
-                        if ($RegistrationResponse['Code'] == 1) {
-                            // header("location:home"); ?>
-                            <script>
-                                alert("Registration Success ");
-                                window.location.href="home";
-                            </script>
-                        <?php }else{
-                            echo "<script>alert('Error while inserting try after some time')</script>";
-
-                        }
-                    }
-                    // if (isset( $_POST['save'] )) {
-                    //     // echo "<pre>";
-                    //     // print_r($_POST);
-                    //     $HobbiesData = implode(',',$_POST['hob']); 
-                    //     $data = array("username"=>$_POST['username'],
-                    //     "password"=>$_POST['password'],
-                    //     "gender"=>$_POST['gender'],
-                    //     "mobile"=>$_POST['mobile'],
-                    //     "hobby"=>$HobbiesData,
-                    //     "email"=>$_POST['email']);
-                    //     // $RegistrationResponse = $this->insert("users",array("username"=>"test","password"=>"456","gender"=>"Male","email"=>"mymail@mail.com"));
-                    //     $RegistrationResponse = $this->insert("users",$data);
-                    //     // $RegistrationResponse = $this->insert("city",array("city_title"=>"test"));
-                    // }
-                    break;
-
-                case "/admindashboard":
-                    include_once("views/admin/header.php");
-                    include_once("views/admin/dashboard.php");
-                    include_once("views/admin/footer.php");
-                    break;
-                case "/allusers":
-                    $AllUsersData = $this->select("users",array("role_id"=>2,"status"=>1));
-                    echo json_encode($AllUsersData);
-                    break;
-                case "/edituser":
-                    $UsersDataById = $this->select("users",array("id"=>$_GET['userid']));
-                    $allCitiesData = $this->select("cities_data");
+                case '/getallusers':
+                    $allUsers = $this->select("users");
+                    echo json_encode($allUsers);
                     // echo "<pre>";
-                    // print_r($AllUsersData);
-                    // exit;
-                    // $AllUsersData = $this->select("users");
-                    include_once("views/admin/header.php");
-                    include_once("views/admin/edituser.php");
-                    include_once("views/admin/footer.php");
-
-                    if (isset($_POST['Update'])) {
-                        $HobbiesData = implode(',',$_POST['chk']); 
-                        // echo "<pre>";
-                        // print_r($_POST);
-                        unset($_POST['chk']);
-                        array_pop($_POST);
-                        // print_r($_POST);
-                        if ($_FILES['prof_pic']['error'] == 0) {
-                            $ImageOrignalName = $_FILES['prof_pic']['name'];
-                            $ext = pathinfo($ImageOrignalName, PATHINFO_EXTENSION);
-                            $ImageName = "shopping".time().".".$ext;
-                            move_uploaded_file($_FILES['prof_pic']['tmp_name'],"uploads/$ImageName");
-                        }else{
-                            $ImageName= "default.jpg";
-                        }
-                        $UpdateData = array_merge($_POST,array("hobby"=>$HobbiesData,"prof_pic"=>$ImageName));
-                        // print_r($Data);
-                        // echo "</pre>";
-                        // exit;
-                        // echo $ImageName;
-                        $UpdateRes = $this->update("users",$UpdateData,array("id"=>$_REQUEST['userid']));
-                        header("location:allusers");
-                    }
+                    // print_r($allUsers);
                     break;
-                case "/deleteuser":    
-                    $DeleteRes = $this->delete("users",array("id"=>$_REQUEST['userid']));
-                    header("location:allusers");
+                case '/login':
+                    $RequestData = json_decode(file_get_contents('php://input')); 
+                    // echo "<pre>";
+                    // print_r($RequestData);
+                    
+                    $LoginData = $this->login($RequestData->username,$RequestData->password);
+                    echo json_encode($LoginData);
+                    break;
+                case '/emailvalidataion':
+                    // $RequestData = json_decode(file_get_contents('php://input')); 
+                    
+                    $Data = $this->select('users',array("email"=>$_REQUEST['email']));
+                    echo json_encode($Data);
+                    break;
+                case '/addnewuser':
+                    $RequestData = json_decode(file_get_contents('php://input'),true); 
+                    // echo "==== requestData====== ";
+                    // print_r($RequestData);
+                    // unset($RequestData->cpassword);
+                    // print_r($RequestData);
+                    // $RequestData->gender = "Male";
+                    unset($RequestData['cpassword']);
+                    $newArray = array_merge($RequestData,array("gender"=>"Male"));
+                    // $RequestData->gender = "Male";
+                    print_r($newArray);
+                    // echo "==== $ _ REQUESTData====== ";
+                    // print_r($_REQUEST);
+                    $Data = $this->insert('user',$newArray);
+                    // echo json_encode($Data);
+                    break;
+                case '/deleteusers':
+                    // $RequestData = json_decode(file_get_contents('php://input')); 
+                    // echo "<pre>";
+                    // print_r($RequestData);
+                    $DeleteData = $this->delete("users",array("id"=>$_REQUEST['userid']));
+                    $allUsers = $this->select("users");
+                    // print_r($allUsers );
+                    echo json_encode($allUsers);
                     break;
                 default:
-                    include_once("views/subpagesheader.php");
-                    include_once("views/templatepage.php");
-                    include_once("views/footer.php");
+                    # code...
                     break;
             }
-        } else {
-            header("location:home");
-            // echo "invalid uri";
         }
-        ob_flush();
     }
 }
 $Controller = new Controller;
