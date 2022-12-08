@@ -19,3 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/allproducts', [App\Http\Controllers\Admin::class, 'getallproducts']);
+Route::post('/saveproducts', [App\Http\Controllers\Admin::class, 'saveproducts']);
+Route::post('/deleteproducts', [App\Http\Controllers\Admin::class, 'deleteproducts']);
+Route::post('/getproductsdatabyid', [App\Http\Controllers\Admin::class, 'getproductsdatabyid']);
+Route::post('/updateproductsdata', [App\Http\Controllers\Admin::class, 'updateproductsdata']);

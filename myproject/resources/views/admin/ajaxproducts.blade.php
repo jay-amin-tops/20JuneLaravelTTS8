@@ -75,10 +75,15 @@
                             <input type="text" class="form-control" placeholder="Enter Quantity" name="quantity" id="quantity">
                         </div>
                     </div>
+                    <div class="row mt-3">
+                        <div class="hiddenfiledid">
+                            <input type="hidden" class="form-control" name="id" id="id">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" id="savebtn" onclick="saveformdata()" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>
@@ -87,33 +92,120 @@
 @endsection
 @push('scripts')
 <script>
+    function getdata() {
+        
+        $.ajax({
+            type: "get",
+            url: "http://localhost:8000/api/allproducts",
+            success: function(response) {
+                // console.log(response);
+                let htmltable = ""
+                response.forEach(element => {
+                    htmltable += `<tr>
+                        <td>${element.id}</td>
+                        <td>${element.title}</td>
+                        <td>${element.description}</td>
+                        <td>${element.price}</td>
+                        <td>${element.quantity}</td>
+                        <td> 
+                            <button onclick="editdata(${element.id})">edit</button> 
+                            <button onclick="deletedata(${element.id})">delete</button> 
+                        </td>
+                    </tr>`
+    
+                });
+    
+                $("#dispProd").html(htmltable)
+            }
+        })
+    }
+    getdata()
+    function editdata(id) {
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8000/api/getproductsdatabyid",
+            data: {id},
+            success: function(response) {
+                console.log(response);
+                $("#title").val(response.title)
+                $("#description").val(response.description)
+                $("#quantity").val(response.quantity)
+                $("#price").val(response.price)
+                $("#id").val(response.id)
+                $('#productform').prop('id', 'form-update'); 
+                // $('#savebtn').prop('onclick', 'updateformdata'); 
+                $("#savebtn").attr("onclick","updateformdata()");
 
+            }
+        })
+        $('#exampleModal').modal('show')
 
-    $.ajax({
-        type:"get",
-        url:"http://localhost:8000/api/allproducts",
-        success:function(response){
-            // console.log(response);
-            let htmltable = ""
-            response.forEach(element => {
-                htmltable += `<tr>
-                    <td>${element.id}</td>
-                    <td>${element.title}</td>
-                    <td>${element.description}</td>
-                    <td>${element.price}</td>
-                    <td>${element.quantity}</td>
-                </tr>`
-                
-            });
-
-            $("#dispProd").html(htmltable)
-        }
-    })
-
-    $("#productform").submit((e)=>{
-        alert("called");
+    }
+    function deletedata(id) {
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8000/api/deleteproducts",
+            data: {id},
+            success: function(response) {
+                getdata()
+            }
+        })
+    }
+    function saveformdata(params) {
+    // $("#productform").submit((e) => {
+        // alert("called");
         e.preventDefault();
-        console.log();
-    })
+        // console.log(this);
+        let FormData = $("#productform").serializeArray()
+        console.log(FormData);
+        formArray = {}
+        FormData.forEach(element => {
+            console.log(element);
+            formArray[element.name] = element.value
+        });
+        // console.log(formArray);
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8000/api/saveproducts",
+            data: {
+                formArray
+            },
+            success: function(response) {
+                // console.log(response);
+                $('#exampleModal').modal('hide')
+                getdata()
+            }
+        })
+        // })
+    }
+    function updateformdata(e) {
+        // alert("called");
+        // e.preventDefault();
+        event.preventDefault();
+        // console.log(this);
+        let FormData = $("#form-update").serializeArray()
+        console.log(FormData);
+        formArray = {}
+        FormData.forEach(element => {
+            console.log(element);
+            formArray[element.name] = element.value
+        });
+        // console.log(formArray);
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8000/api/updateproductsdata",
+            data: {
+                formArray
+            },
+            success: function(response) {
+                // console.log(response);
+                $('#exampleModal').modal('hide')
+                getdata()
+            }
+        })
+    }
+    // $("#form-update").submit((e) => {
+        
+    // })
 </script>
 @endpush

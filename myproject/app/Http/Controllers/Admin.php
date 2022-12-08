@@ -41,6 +41,36 @@ class Admin extends Controller
     {
         //
     }
+    public function saveproducts(Request $request,Products $products){
+        // dd($request->all());
+        $products->title = $request->formArray['title']; 
+        $products->description = $request->formArray['description']; 
+        $products->price = $request->formArray['price']; 
+        $products->quantity = $request->formArray['quantity']; 
+        $insertRes = $products->save(); 
+        return $insertRes;
+    }
+    public function getproductsdatabyid(Request $request,Products $products){
+        $prodDataById = $products::find($request['id']);
+        return $prodDataById;
+    }
+    public function updateproductsdata(Request $request,Products $products){
+        $prodDataById = $products::find($request->formArray['id']);
+        // dd($prodDataById);
+        
+        $prodDataById->title = $request->formArray['title']; 
+        $prodDataById->description = $request->formArray['description']; 
+        $prodDataById->price = $request->formArray['price']; 
+        $prodDataById->quantity = $request->formArray['quantity']; 
+        $insertRes = $prodDataById->save(); 
+        return $insertRes;
+    }
+    public function deleteproducts(Request $request,Products $products){
+        $prodDataById = $products::find($request['id']);
+        $deleteRes = $prodDataById->delete(); 
+        
+        return $deleteRes;
+    }
 
     /**
      * Display the specified resource.
