@@ -1,0 +1,30 @@
+ <!-- {!! Form::open(['method' => 'DELETE','route' => ['category.destroy', $catData->category_id],'style'=>'display:inline']) !!}
+{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+{!! Form::close() !!} -->
+    <!-- <form action="{{ url('category', ['id' => $catData->category_id ]) }}" method="DELETE">
+        @csrf
+
+        @method('DELETE')
+
+        <button type="submit" class="btn btn-danger btn-block">Delete</button>
+    </form> -->
+
+     <!-- <form action="category/<?php echo $catData->category_id; ?>" method="POST" onsubmit="return confirm('Are you sure you want to unenroll?');" style="display: inline-block;">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="submit" class="btn btn-danger" value="Unenroll">
+                            </form> -->
+
+
+
+                             {{ Form::open(['method' => 'POST', 'route' => ['category.destroy']]) }}
+                            {{ Form::hidden('category_id',$catData->category_id) }}
+                            {{ Form::submit('Delete') }}
+                        {{ Form::close() }}
+
+
+                        <form action="{{ route('category.destroy', $catData->category_id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm" title="Delete">Delete</button>
+                        </form>

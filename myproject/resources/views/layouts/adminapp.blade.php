@@ -55,6 +55,12 @@
 							<!-- <i class="align-middle" data-feather="users"></i> <span class="align-middle">All Users</span> -->
 						</a>
 					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="sendmailtestview">
+						<i class="fa-regular fa-boxes-stacked"></i><span class="align-middle">Send mail</span>
+							<!-- <i class="align-middle" data-feather="users"></i> <span class="align-middle">All Users</span> -->
+						</a>
+					</li>
 				</ul>
 
 				<div class="sidebar-cta">

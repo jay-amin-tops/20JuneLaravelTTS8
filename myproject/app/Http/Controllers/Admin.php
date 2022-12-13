@@ -42,13 +42,26 @@ class Admin extends Controller
         //
     }
     public function saveproducts(Request $request,Products $products){
+        // dd($request);
         // dd($request->all());
         $products->title = $request->formArray['title']; 
         $products->description = $request->formArray['description']; 
         $products->price = $request->formArray['price']; 
         $products->quantity = $request->formArray['quantity']; 
         $insertRes = $products->save(); 
-        return $insertRes;
+        // return $insertRes;
+    }
+    public function sendmail(Request $request){
+        // dd("checking");
+        $mailTo = $request->to;
+        $data = array('name' => "TOPS");
+        // DD($mailTo);
+        \Mail::send(['html' => 'admin.mail'], $data, function ($message) use ($mailTo) {
+            // DD($mailTo);
+            $message->to($mailTo, 'Welcome to my site')->subject('Congsratulation');
+            $message->from('jay.amin.tops@gmail.com', 'Jay Amin');
+        });
+        echo "Basic Email Sent. Check your inbox.";
     }
     public function getproductsdatabyid(Request $request,Products $products){
         $prodDataById = $products::find($request['id']);
