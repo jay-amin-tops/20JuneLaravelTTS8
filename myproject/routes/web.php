@@ -29,6 +29,11 @@ Route::view('/ajaxproducts', 'admin.ajaxproducts');
 
 Route::view('/sendmailtestview', 'admin.sendmailtestview');
 Route::any('/sendmailtest', [App\Http\Controllers\Admin::class, 'sendmail']);
+Route::view('/prodinsertformiddleware', 'admin.prodinsertformiddleware');
+Route::view('/custommacro', 'admin.custommacro');
+Route::any('/middlewaretest', function (){
+    dd("MiddelwareCorrect");
+})->middleware("checkprodprice");
 
 Route::resource('category', 'App\Http\Controllers\CategoryControllerResource');
 // Route::resource('category',  function (){

@@ -61,6 +61,18 @@
 							<!-- <i class="align-middle" data-feather="users"></i> <span class="align-middle">All Users</span> -->
 						</a>
 					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="prodinsertformiddleware">
+						<i class="fa-regular fa-boxes-stacked"></i><span class="align-middle">Middleware</span>
+							<!-- <i class="align-middle" data-feather="users"></i> <span class="align-middle">All Users</span> -->
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="custommacro">
+						<i class="fa-regular fa-boxes-stacked"></i><span class="align-middle">Custom Macro</span>
+							<!-- <i class="align-middle" data-feather="users"></i> <span class="align-middle">All Users</span> -->
+						</a>
+					</li>
 				</ul>
 
 				<div class="sidebar-cta">
